@@ -13,6 +13,7 @@ namespace DesafioMarlin.Context
         {
         }
         public DbSet<Aluno> Alunos { get; set; }
+        public DbSet<Turma> Turmas { get; set; }
     
     }
 }
