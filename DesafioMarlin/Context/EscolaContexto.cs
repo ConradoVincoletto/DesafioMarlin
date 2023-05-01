@@ -13,6 +13,6 @@ namespace DesafioMarlin.Context
         {
         }
         public DbSet<Aluno> Alunos { get; set; }
-    {
+    
     }
 }

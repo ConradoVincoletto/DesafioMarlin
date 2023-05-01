@@ -1,8 +1,16 @@
+using DesafioMarlin.Context;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddDbContext<EscolaContexto>
+    (options => options.UseSqlServer
+    ("Data Source=LAPTOP-MGPDKJRC\\SQLSERVER2022;Initial Catalog=PROJETO_MARLIN;Integrated Security=True;Encrypt=False;TrustServerCertificate=False"));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
