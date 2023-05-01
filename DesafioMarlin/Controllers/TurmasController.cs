@@ -98,6 +98,14 @@ namespace DesafioMarlin.Controllers
             {
                 return NotFound(e.Message);
             }
+            try
+            {
+                turma.AlunoCadastro();
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
 
             _context.Turmas.Add(turma);
             await _context.SaveChangesAsync();
