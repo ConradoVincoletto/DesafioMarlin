@@ -25,10 +25,10 @@ namespace DesafioMarlin.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Turma>>> GetTurmas()
         {
-          if (_context.Turmas == null)
-          {
-              return NotFound();
-          }
+            if (_context.Turmas == null)
+            {
+                return NotFound();
+            }
             return await _context.Turmas.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace DesafioMarlin.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Turma>> GetTurma(int id)
         {
-          if (_context.Turmas == null)
-          {
-              return NotFound();
-          }
+            if (_context.Turmas == null)
+            {
+                return NotFound();
+            }
             var turma = await _context.Turmas.FindAsync(id);
 
             if (turma == null)
@@ -86,10 +86,19 @@ namespace DesafioMarlin.Controllers
         [HttpPost]
         public async Task<ActionResult<Turma>> PostTurma(Turma turma)
         {
-          if (_context.Turmas == null)
-          {
-              return Problem("Entity set 'EscolaContexto.Turmas'  is null.");
-          }
+            if (_context.Turmas == null)
+            {
+                return Problem("Entity set 'EscolaContexto.Turmas'  is null.");
+            }
+            try
+            {
+                turma.AdicionarApenasCinco();
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
+
             _context.Turmas.Add(turma);
             await _context.SaveChangesAsync();
 
@@ -105,9 +114,18 @@ namespace DesafioMarlin.Controllers
                 return NotFound();
             }
             var turma = await _context.Turmas.FindAsync(id);
+
             if (turma == null)
             {
                 return NotFound();
+            }
+            try
+            {
+                turma.NãoExcluirClasse();
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
             }
 
             _context.Turmas.Remove(turma);

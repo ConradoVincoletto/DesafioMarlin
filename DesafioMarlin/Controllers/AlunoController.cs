@@ -25,10 +25,10 @@ namespace DesafioMarlin.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Aluno>>> GetAlunos()
         {
-          if (_context.Alunos == null)
-          {
-              return NotFound();
-          }
+            if (_context.Alunos == null)
+            {
+                return NotFound();
+            }
             return await _context.Alunos.ToListAsync();
         }
 
@@ -36,10 +36,10 @@ namespace DesafioMarlin.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<Aluno>> GetAluno(int id)
         {
-          if (_context.Alunos == null)
-          {
-              return NotFound();
-          }
+            if (_context.Alunos == null)
+            {
+                return NotFound();
+            }
             var aluno = await _context.Alunos.FindAsync(id);
 
             if (aluno == null)
@@ -86,10 +86,18 @@ namespace DesafioMarlin.Controllers
         [HttpPost]
         public async Task<ActionResult<Aluno>> PostAluno(Aluno aluno)
         {
-          if (_context.Alunos == null)
-          {
-              return Problem("Entity set 'EscolaContexto.Alunos'  is null.");
-          }
+            if (_context.Alunos == null)
+            {
+                return Problem("Entity set 'EscolaContexto.Alunos'  is null.");
+            }
+            try
+            {
+                aluno.CpfDuplicidade();
+            }
+            catch (Exception e)
+            {
+                return NotFound(e.Message);
+            }
             _context.Alunos.Add(aluno);
             await _context.SaveChangesAsync();
 

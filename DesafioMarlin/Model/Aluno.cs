@@ -17,5 +17,18 @@ namespace DesafioMarlin.Model
         [Required(ErrorMessage = "O email é obrigatório")]
         [EmailAddress(ErrorMessage = "O email é inválido")]
         public string Email { get; set; }
+
+        public void CpfDuplicidade()
+        {
+            var cpfdup = Cpf.Distinct();
+
+            foreach (var item in cpfdup)
+            {
+                if (item == item)
+                {
+                    throw new Exception("Classe não poder conter duplicidade de Alunos");
+                }
+            }
+        }
     }
 }
